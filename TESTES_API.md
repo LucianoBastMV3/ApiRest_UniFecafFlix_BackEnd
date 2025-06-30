@@ -46,6 +46,15 @@ Este documento contém os resultados dos testes realizados nos endpoints da API 
 ![image](https://github.com/user-attachments/assets/5f34dcdb-ea12-4b7c-ad83-1a6afb4b9c04)
 ![image](https://github.com/user-attachments/assets/202d4493-1a9d-4aa7-83de-5c7c484acac3)
 
+### 3.1. Listagem de Filmes pelo Nome (GET /v1/filmes)
+
+**Objetivo:** Verificar a listagem selecionando um nome.
+
+**Resultado (Status 200 OK):**
+
+![image](https://github.com/user-attachments/assets/72395d84-04ed-46f3-bf7e-648e89cc913a)
+![image](https://github.com/user-attachments/assets/0eab65ff-40f4-484f-b00d-071b015fa4e8)
+
 ---
 
 ## 4. Filtragem de Filmes por ID (GET /v1/filmes{id})
