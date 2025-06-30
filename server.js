@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 require('express-async-errors'); // Importa para capturar erros async automaticamente
 const { connectDB } = require('./config/db');
 const filmeRoutes = require('./routes/filmeRoutes');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 const errorHandler = require('./middlewares/errorMiddleware');
 
 dotenv.config();
@@ -20,6 +22,9 @@ const startServer = async () => {
         // Rotas da API
         // Sugestão: Usar um nome de recurso mais direto e no plural, como 'filmes'
         app.use('/v1/filmes', filmeRoutes);
+
+        // Rota para a documentação da API
+        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
         app.get('/', (req, res) => {
             res.send('API FECAF Flix está online!');
