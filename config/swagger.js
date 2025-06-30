@@ -6,9 +6,9 @@ const options = {
     info: {
       title: 'FECAF Flix API',
       version: '1.0.0',
-      description: 'Uma API RESTful para gerenciar um catálogo de filmes, desenvolvida para o projeto da UniFECAF.',
+      description: 'Uma API RESTful para gerenciar filmes, Desenvolvida por Luciano Boaventura Bastos para a disciplina de Web Programming For Back-End do curso de Análise e Desenvolvimento de Sistemas da Universidade UniFECAF ',
       contact: {
-        name: 'Luciano Bastos',
+        name: 'Repositório Luciano',
         url: 'https://github.com/LucianoBastMV3/Back-End',
       },
     },
