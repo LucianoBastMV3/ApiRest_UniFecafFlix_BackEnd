@@ -1,7 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
+require('express-async-errors'); // Importa para capturar erros async automaticamente
 const { connectDB } = require('./config/db');
 const filmeRoutes = require('./routes/filmeRoutes');
+const errorHandler = require('./middlewares/errorMiddleware');
 
 dotenv.config();
 
@@ -22,6 +24,9 @@ const startServer = async () => {
         app.get('/', (req, res) => {
             res.send('API FECAF Flix está online!');
         });
+
+        // Middleware de tratamento de erros (deve ser o último middleware)
+        app.use(errorHandler);
 
         app.listen(PORT, () => {
             console.log(`Servidor rodando na porta ${PORT}`);

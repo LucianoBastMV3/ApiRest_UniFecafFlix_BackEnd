@@ -16,77 +16,50 @@ const filmeSchema = Joi.object({
 const filmeController = {
   // Função unificada para listar todos ou filtrar
   getAllOrFilterFilmes: async (req, res) => {
-    try {
-      const { search } = req.query; // Usando um único parâmetro 'search'
-      let filmes;
+    const { search } = req.query; // Usando um único parâmetro 'search'
+    let filmes;
 
-      if (search) {
-        filmes = await Filme.filterByNameOrSynopsis(search);
-      } else {
-        filmes = await Filme.getAll();
-      }
-
-      res.status(200).json(filmes);
-    } catch (error) {
-      console.error("Erro ao obter filmes:", error);
-      res.status(500).json({ message: "Erro interno do servidor." });
+    if (search) {
+      filmes = await Filme.filterByNameOrSynopsis(search);
+    } else {
+      filmes = await Filme.getAll();
     }
+
+    res.status(200).json(filmes);
   },
 
   getFilmeById: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const filme = await Filme.getById(id);
-      if (filme) {
-        res.status(200).json(filme);
-      } else {
-        res.status(404).json({ message: "Filme não encontrado." });
-      }
-    } catch (error) {
-      console.error(`Erro ao obter filme com ID ${req.params.id}:`, error);
-      res.status(500).json({ message: "Erro interno do servidor." });
+    const { id } = req.params;
+    const filme = await Filme.getById(id);
+    if (filme) {
+      res.status(200).json(filme);
+    } else {
+      res.status(404).json({ message: "Filme não encontrado." });
     }
   },
 
   createFilme: async (req, res) => {
-    try {
-      // A validação agora é feita pelo middleware
-      const novoFilme = await Filme.create(req.body);
-      res.status(201).json(novoFilme);
-    } catch (error) {
-      console.error("Erro ao criar filme:", error);
-      res.status(500).json({ message: "Erro interno do servidor." });
-    }
+    const novoFilme = await Filme.create(req.body);
+    res.status(201).json(novoFilme);
   },
 
   updateFilme: async (req, res) => {
-    try {
-      const { id } = req.params;
-      // A validação agora é feita pelo middleware
-      const filmeAtualizado = await Filme.update(id, req.body);
-      if (filmeAtualizado) {
-        res.status(200).json(filmeAtualizado);
-      } else {
-        res.status(404).json({ message: "Filme não encontrado para atualização." });
-      }
-    } catch (error) {
-      console.error(`Erro ao atualizar filme com ID ${req.params.id}:`, error);
-      res.status(500).json({ message: "Erro interno do servidor." });
+    const { id } = req.params;
+    const filmeAtualizado = await Filme.update(id, req.body);
+    if (filmeAtualizado) {
+      res.status(200).json(filmeAtualizado);
+    } else {
+      res.status(404).json({ message: "Filme não encontrado para atualização." });
     }
   },
 
   deleteFilme: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const linhasAfetadas = await Filme.deleteById(id);
-      if (linhasAfetadas > 0) {
-        res.status(204).send(); // 204 No Content: sucesso, sem corpo na resposta
-      } else {
-        res.status(404).json({ message: "Filme não encontrado para exclusão." });
-      }
-    } catch (error) {
-      console.error(`Erro ao deletar filme com ID ${req.params.id}:`, error);
-      res.status(500).json({ message: "Erro interno do servidor." });
+    const { id } = req.params;
+    const linhasAfetadas = await Filme.deleteById(id);
+    if (linhasAfetadas > 0) {
+      res.status(204).send(); // 204 No Content: sucesso, sem corpo na resposta
+    } else {
+      res.status(404).json({ message: "Filme não encontrado para exclusão." });
     }
   },
 };
