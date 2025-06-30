@@ -50,14 +50,8 @@ const filmeController = {
 
   createFilme: async (req, res) => {
     try {
-      // Validação dos dados de req.body com Joi
-      const { error, value } = filmeSchema.validate(req.body);
-      if (error) {
-        // Retorna um erro 400 (Bad Request) com os detalhes da validação
-        return res.status(400).json({ message: "Dados de entrada inválidos.", details: error.details });
-      }
-
-      const novoFilme = await Filme.create(value);
+      // A validação agora é feita pelo middleware
+      const novoFilme = await Filme.create(req.body);
       res.status(201).json(novoFilme);
     } catch (error) {
       console.error("Erro ao criar filme:", error);
@@ -68,14 +62,8 @@ const filmeController = {
   updateFilme: async (req, res) => {
     try {
       const { id } = req.params;
-      // Validação dos dados de req.body com Joi
-      const { error, value } = filmeSchema.validate(req.body);
-      if (error) {
-        // Retorna um erro 400 (Bad Request) com os detalhes da validação
-        return res.status(400).json({ message: "Dados de entrada inválidos.", details: error.details });
-      }
-
-      const filmeAtualizado = await Filme.update(id, value);
+      // A validação agora é feita pelo middleware
+      const filmeAtualizado = await Filme.update(id, req.body);
       if (filmeAtualizado) {
         res.status(200).json(filmeAtualizado);
       } else {
@@ -103,4 +91,4 @@ const filmeController = {
   },
 };
 
-module.exports = filmeController;
+module.exports = { filmeController, filmeSchema };
